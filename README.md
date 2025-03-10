@@ -52,42 +52,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-## Structure de la base de données
 
-### Utilisateurs (users)
-- `id`: Identifiant unique
-- `name`: Nom de l'utilisateur
-- `email`: Email (unique)
-- `password`: Mot de passe (hashé)
-- `timestamps`: created_at, updated_at
-
-### Itinéraires (itineraires)
-- `id`: Identifiant unique
-- `titre`: Nom de l'itinéraire
-- `categorie`: Type d'itinéraire (plage, montagne, etc.)
-- `duree`: Durée en jours
-- `image`: Chemin vers l'image de couverture
-- `user_id`: Référence à l'utilisateur créateur
-- `favoris`: Nombre d'ajouts aux favoris
-- `timestamps`: created_at, updated_at
-
-### Destinations (destinations)
-- `id`: Identifiant unique
-- `nom`: Nom de la destination
-- `logement`: Information sur l'hébergement
-- `itineraire_id`: Référence à l'itinéraire parent
-- `timestamps`: created_at, updated_at
-
-### Points d'intérêt (points_interet)
-- `id`: Identifiant unique
-- `description`: Description de l'activité, lieu ou plat
-- `destination_id`: Référence à la destination
-- `timestamps`: created_at, updated_at
-
-### Itinéraires à visiter (itineraire_user)
-- `user_id`: Référence à l'utilisateur
-- `itineraire_id`: Référence à l'itinéraire
-- `timestamps`: created_at, updated_at
 
 ## Endpoints API
 
