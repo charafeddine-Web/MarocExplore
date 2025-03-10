@@ -16,7 +16,7 @@ MarocExplore est une API REST développée avec Laravel permettant aux voyageurs
 ## Technologies utilisées
 
 - **Backend**: PHP 8.x, Laravel 10.x
-- **Base de données**: MySQL
+- **Base de données**: Postgresql
 - **Authentification**: Laravel Sanctum
 - **Documentation**: Postman
 - **Tests**: PHPUnit pour les tests unitaires, Postman pour les tests d'intégration
