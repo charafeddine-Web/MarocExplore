@@ -2,47 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Itinerary;
 use Illuminate\Http\Request;
 
 class FavoriteItineraryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function addToWishlist(Request $request, $id)
     {
-        //
+        $user = auth()->user();
+        $itinerary = Itinerary::find($id);
+        if (!$itinerary) {
+            return response()->json(['message' => 'Itinéraire non trouvé'], 404);
+        }
+        $user->wishlist()->attach($id);
+
+        return response()->json(['message' => 'Itinéraire ajouté à la liste à visiter']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function removeFromWishlist(Request $request, $id)
     {
-        //
-    }
+        $user = auth()->user();
+        $itinerary = Itinerary::find($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if (!$itinerary) {
+            return response()->json(['message' => 'Itinéraire non trouvé'], 404);
+        }
+        $user->wishlist()->detach($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json(['message' => 'Itinéraire retiré de la liste à visiter']);
     }
 }
