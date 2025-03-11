@@ -52,7 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/destinations/{id}', [DestinationController::class, 'show']);
     Route::put('/destinations/{id}', [DestinationController::class, 'update']);
     Route::delete('/destinations/{id}', [DestinationController::class, 'destroy']);
-
 });
 
 
