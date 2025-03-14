@@ -42,4 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function itinerarys(){
+        return $this->hasMany(Itinerary::class);
+    }
+    public function wishlist()
+    {
+        return $this->belongsToMany(Itinerary::class, 'FavoriteItinerary', 'user_id', 'itinerary_id')->withTimestamps();
+    }
+
+
+
 }
