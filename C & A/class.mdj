@@ -534,24 +534,6 @@
 										},
 										{
 											"_type": "UMLAttributeView",
-											"_id": "AAAAAAGVgCriCNR8rm8=",
-											"_parent": {
-												"$ref": "AAAAAAGVgCYrQdNBKZc="
-											},
-											"model": {
-												"$ref": "AAAAAAGVgCriBtR5bss="
-											},
-											"font": "Arial;13;0",
-											"parentStyle": true,
-											"left": 853,
-											"top": 459,
-											"width": 151.6689453125,
-											"height": 13,
-											"text": "-details: text",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
 											"_id": "AAAAAAGVgCsQWdSENK8=",
 											"_parent": {
 												"$ref": "AAAAAAGVgCYrQdNBKZc="
@@ -562,7 +544,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 853,
-											"top": 474,
+											"top": 459,
 											"width": 151.6689453125,
 											"height": 13,
 											"text": "-created_at: datetime",
@@ -580,7 +562,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 853,
-											"top": 489,
+											"top": 474,
 											"width": 151.6689453125,
 											"height": 13,
 											"text": "-updated_at: datetime",
@@ -592,7 +574,7 @@
 									"left": 848,
 									"top": 409,
 									"width": 161.6689453125,
-									"height": 98
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -606,7 +588,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 848,
-									"top": 507,
+									"top": 492,
 									"width": 161.6689453125,
 									"height": 10
 								},
@@ -2893,16 +2875,6 @@
 							"name": "lodging",
 							"visibility": "private",
 							"type": "string"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGVgCriBtR5bss=",
-							"_parent": {
-								"$ref": "AAAAAAGVgCYrQdM54qI="
-							},
-							"name": "details",
-							"visibility": "private",
-							"type": "text"
 						},
 						{
 							"_type": "UMLAttribute",

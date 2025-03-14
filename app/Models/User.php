@@ -46,10 +46,11 @@ class User extends Authenticatable
     public function itinerarys(){
         return $this->hasMany(Itinerary::class);
     }
-    public function favoriteItineraries()
+    public function wishlist()
     {
-        return $this->belongsToMany(Itinerary::class, 'FavoriteItinerary', 'user_id', 'itinerary_id');
+        return $this->belongsToMany(Itinerary::class, 'FavoriteItinerary', 'user_id', 'itinerary_id')->withTimestamps();
     }
+
 
 
 }

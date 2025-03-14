@@ -28,30 +28,27 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', [AuthController::class, 'user']);
-
     Route::post('/logout', [AuthController::class, 'logout']);
 
+//itineraries
     Route::get('/itineraries', [ItineraryController::class, 'index']);
-
     Route::post('/itineraries', [ItineraryController::class, 'store']);
-
     Route::get('/itineraries/{id}', [ItineraryController::class, 'show']);
-
     Route::put('/itineraries/{id}', [ItineraryController::class, 'update']);
-
     Route::delete('/itineraries/{id}', [ItineraryController::class, 'destroy']);
 
 //FavoriteItinerary
-    Route::post('/itineraries/{id}/wishlist', [FavoriteItineraryController::class, 'addToWishlist']);
-    Route::delete('/itineraries/{id}/wishlist', [FavoriteItineraryController::class, 'removeFromWishlist']);
+    Route::post('/wishlist/{id}', [FavoriteItineraryController::class, 'addToWishlist']);
+    Route::get('/wishlist', [FavoriteItineraryController::class, 'index']);
+    Route::delete('/wishlist/{id}', [FavoriteItineraryController::class, 'removeFromWishlist']);
 
 //  destination
-
     Route::get('/destinations', [DestinationController::class, 'index']);
     Route::post('/destinations', [DestinationController::class, 'store']);
     Route::get('/destinations/{id}', [DestinationController::class, 'show']);
     Route::put('/destinations/{id}', [DestinationController::class, 'update']);
     Route::delete('/destinations/{id}', [DestinationController::class, 'destroy']);
+
 });
 
 

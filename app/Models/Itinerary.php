@@ -16,9 +16,13 @@ class Itinerary extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function users()
+//    public function users()
+//    {
+//        return $this->belongsToMany(User::class, 'FavoriteItinerary', 'itinerary_id', 'user_id');
+//    }
+    public function favoritedBy()
     {
-        return $this->belongsToMany(User::class, 'FavoriteItinerary', 'itinerary_id', 'user_id');
+        return $this->belongsToMany(User::class, 'FavoriteItinerary')->withTimestamps();
     }
 
     public function destinations()

@@ -9,11 +9,24 @@ use Illuminate\Support\Facades\Validator;
 
 class ItineraryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $itineraries = Itinerary::with('destinations')->get();
+        $query = Itinerary::query();
+
+        if ($request->has('category')) {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->has('min_duration')) {
+            $query->where('duration', '>=', $request->min_duration);
+        }
+        if ($request->has('max_duration')) {
+            $query->where('duration', '<=', $request->max_duration);
+        }
+        $itineraries = $query->with('destinations')->get();
         return response()->json($itineraries);
     }
+
 
     public function store(Request $request)
     {
