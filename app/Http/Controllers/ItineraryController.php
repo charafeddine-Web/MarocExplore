@@ -238,5 +238,4 @@ class ItineraryController extends Controller
         $itinerary->delete();
         return response()->json(['message' => 'Itinéraire supprimé avec succès']);
     }
-
 }

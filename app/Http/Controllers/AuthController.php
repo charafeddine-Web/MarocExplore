@@ -1,12 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
 
 class AuthController extends Controller
 {
@@ -30,7 +27,6 @@ class AuthController extends Controller
      *     @OA\Response(response=400, description="Données invalides")
      * )
      */
-
     public function register(Request $request)
     {
         $validatedData = $request->validate([
