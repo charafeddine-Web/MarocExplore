@@ -1,0 +1,627 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Gestion des Itinéraires",
+        "description": "Documentation pour l'API de gestion des itinéraires",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Créer un nouvel utilisateur",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès"
+                    },
+                    "422": {
+                        "description": "Validation échouée"
+                    },
+                    "400": {
+                        "description": "Données invalides"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Authentifier un utilisateur et générer un token",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie"
+                    },
+                    "401": {
+                        "description": "Identifiants incorrects"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Déconnexion de l'utilisateur",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Déconnexion réussie"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Récupérer les informations de l'utilisateur connecté",
+                "operationId": "7c1cf647d76fad4b3eb1549fa4fe2f4c",
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur récupéré avec succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/destinations": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Liste de toutes les destinations",
+                "operationId": "b77633672e38c28f34c971e03fba189e",
+                "responses": {
+                    "200": {
+                        "description": "Liste des destinations récupérée avec succès"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Créer une nouvelle destination",
+                "operationId": "27af999f18dfd1b7b8083c3b1718b492",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Paris"
+                                    },
+                                    "lodging": {
+                                        "type": "string",
+                                        "example": "Hotel Paris"
+                                    },
+                                    "places": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "Eiffel Tower"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Destination créée avec succès"
+                    },
+                    "422": {
+                        "description": "Validation échouée"
+                    }
+                }
+            }
+        },
+        "/api/destinations/{id}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Obtenir une destination par ID",
+                "operationId": "df0aec078fc487094108b4ccb0a56385",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la destination",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Destination récupérée avec succès"
+                    },
+                    "404": {
+                        "description": "Destination non trouvée"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Mettre à jour une destination",
+                "operationId": "09e3b6b10dfaed7696e9f0fb6605748f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la destination",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Paris"
+                                    },
+                                    "lodging": {
+                                        "type": "string",
+                                        "example": "Hotel Paris"
+                                    },
+                                    "places": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "Louvre Museum"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Destination mise à jour avec succès"
+                    },
+                    "422": {
+                        "description": "Validation échouée"
+                    },
+                    "404": {
+                        "description": "Destination non trouvée"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Supprimer une destination",
+                "operationId": "dfbfce05ebf43f6ce8ef339668e11de9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la destination",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Destination supprimée avec succès"
+                    },
+                    "404": {
+                        "description": "Destination non trouvée"
+                    }
+                }
+            }
+        },
+        "/api/wishlist/{id}": {
+            "post": {
+                "tags": [
+                    "Favoris"
+                ],
+                "summary": "Ajouter un itinéraire à la liste à visiter",
+                "operationId": "f1cbe9d6f3b0095b7dc4646db28f473a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'itinéraire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire ajouté à la liste à visiter"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    },
+                    "409": {
+                        "description": "Itinéraire déjà dans la liste"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Favoris"
+                ],
+                "summary": "Supprimer un itinéraire de la liste à visiter",
+                "operationId": "e69bc334c18d5e91ad2860fcf8318c58",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'itinéraire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire retiré de la liste à visiter"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    }
+                }
+            }
+        },
+        "/api/wishlist": {
+            "get": {
+                "tags": [
+                    "Favoris"
+                ],
+                "summary": "Récupérer les itinéraires dans la liste à visiter",
+                "operationId": "27f930fd82e1b39a7d580931e8b198c1",
+                "responses": {
+                    "200": {
+                        "description": "Liste des itinéraires récupérée avec succès"
+                    }
+                }
+            }
+        },
+        "/api/itineraries": {
+            "get": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Récupérer la liste des itinéraires",
+                "operationId": "86675d12475f84f785e7563fa8b8a0d9",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filtrer par catégorie",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "min_duration",
+                        "in": "query",
+                        "description": "Filtrer par durée minimale",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "max_duration",
+                        "in": "query",
+                        "description": "Filtrer par durée maximale",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des itinéraires récupérée avec succès"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Créer un nouvel itinéraire",
+                "operationId": "9ddf03b1ccb2fb24c86fa810f0614b38",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "category",
+                                    "duration",
+                                    "destinations"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Voyage au Sahara"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Désert"
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Merzouga"
+                                                },
+                                                "lodging": {
+                                                    "type": "string",
+                                                    "example": "Camp du désert"
+                                                },
+                                                "places": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Itinéraire créé avec succès"
+                    },
+                    "422": {
+                        "description": "Données invalides"
+                    },
+                    "409": {
+                        "description": "Itinéraire déjà existant"
+                    }
+                }
+            }
+        },
+        "/api/itineraries/{id}": {
+            "get": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Récupérer un itinéraire spécifique",
+                "operationId": "491c9ddb477072a43a407e3d306bd81c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'itinéraire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire récupéré"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Mettre à jour un itinéraire",
+                "operationId": "6c2bd72ca2c9fccd61ef1297b4c0b1a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'itinéraire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Voyage au Sahara Modifié"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Aventure"
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "example": 7
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire mis à jour"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Supprimer un itinéraire",
+                "operationId": "f65090001e6f5de3421bde54a3dd140f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'itinéraire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire supprimé"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentification",
+            "description": "Authentification"
+        },
+        {
+            "name": "Destinations",
+            "description": "Destinations"
+        },
+        {
+            "name": "Favoris",
+            "description": "Favoris"
+        },
+        {
+            "name": "Itinéraires",
+            "description": "Itinéraires"
+        }
+    ]
+}

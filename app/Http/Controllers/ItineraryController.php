@@ -6,9 +6,45 @@ use App\Models\Destination;
 use App\Models\Itinerary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="API de Gestion des Itinéraires",
+ *      description="Documentation pour l'API de gestion des itinéraires"
+ * )
+ */
 class ItineraryController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/itineraries",
+     *     summary="Récupérer la liste des itinéraires",
+     *     tags={"Itinéraires"},
+     *     @OA\Parameter(
+     *         name="category",
+     *         in="query",
+     *         description="Filtrer par catégorie",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="min_duration",
+     *         in="query",
+     *         description="Filtrer par durée minimale",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="max_duration",
+     *         in="query",
+     *         description="Filtrer par durée maximale",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Liste des itinéraires récupérée avec succès"),
+     *     @OA\Response(response=500, description="Erreur serveur")
+     * )
+     */
     public function index(Request $request)
     {
         $query = Itinerary::query();
@@ -27,7 +63,34 @@ class ItineraryController extends Controller
         return response()->json($itineraries);
     }
 
-
+    /**
+     * @OA\Post(
+     *     path="/api/itineraries",
+     *     summary="Créer un nouvel itinéraire",
+     *     tags={"Itinéraires"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"title","category","duration","destinations"},
+     *             @OA\Property(property="title", type="string", example="Voyage au Sahara"),
+     *             @OA\Property(property="category", type="string", example="Désert"),
+     *             @OA\Property(property="duration", type="integer", example=5),
+     *             @OA\Property(
+     *                 property="destinations",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="name", type="string", example="Merzouga"),
+     *                     @OA\Property(property="lodging", type="string", example="Camp du désert"),
+     *                     @OA\Property(property="places", type="array", @OA\Items(type="string"))
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Itinéraire créé avec succès"),
+     *     @OA\Response(response=422, description="Données invalides"),
+     *     @OA\Response(response=409, description="Itinéraire déjà existant")
+     * )
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -73,7 +136,22 @@ class ItineraryController extends Controller
         return response()->json($itinerary->load('destinations'), 201);
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/itineraries/{id}",
+     *     summary="Récupérer un itinéraire spécifique",
+     *     tags={"Itinéraires"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'itinéraire",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Itinéraire récupéré"),
+     *     @OA\Response(response=404, description="Itinéraire non trouvé")
+     * )
+     */
     public function show($id)
     {
         $itinerary = Itinerary::with('destinations')->find($id);
@@ -84,7 +162,30 @@ class ItineraryController extends Controller
 
         return response()->json($itinerary);
     }
-
+    /**
+     * @OA\Put(
+     *     path="/api/itineraries/{id}",
+     *     summary="Mettre à jour un itinéraire",
+     *     tags={"Itinéraires"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'itinéraire",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string", example="Voyage au Sahara Modifié"),
+     *             @OA\Property(property="category", type="string", example="Aventure"),
+     *             @OA\Property(property="duration", type="integer", example=7)
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Itinéraire mis à jour"),
+     *     @OA\Response(response=404, description="Itinéraire non trouvé")
+     * )
+     */
     public function update(Request $request, $id)
     {
         $itinerary = Itinerary::find($id);
@@ -111,7 +212,22 @@ class ItineraryController extends Controller
 
         return response()->json($itinerary);
     }
-
+    /**
+     * @OA\Delete(
+     *     path="/api/itineraries/{id}",
+     *     summary="Supprimer un itinéraire",
+     *     tags={"Itinéraires"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'itinéraire",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Itinéraire supprimé"),
+     *     @OA\Response(response=404, description="Itinéraire non trouvé")
+     * )
+     */
     public function destroy($id)
     {
         $itinerary = Itinerary::find($id);
