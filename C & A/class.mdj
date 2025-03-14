@@ -2927,7 +2927,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGVgCYv3tNiihQ="
 							},
-							"name": "created_at"
+							"name": "created_at",
+							"type": ""
 						}
 					]
 				},
@@ -3092,7 +3093,8 @@
 								"$ref": "AAAAAAGVhUhnEUwHCnQ="
 							},
 							"name": "id",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3101,7 +3103,8 @@
 								"$ref": "AAAAAAGVhUhnEUwHCnQ="
 							},
 							"name": "name",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3118,7 +3121,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGVhUhnEUwHCnQ="
 							},
-							"name": "description"
+							"name": "description",
+							"type": ""
 						}
 					]
 				},
