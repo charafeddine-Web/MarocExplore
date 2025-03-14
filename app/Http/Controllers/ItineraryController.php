@@ -133,7 +133,10 @@ class ItineraryController extends Controller
             $itinerary->destinations()->save($destination);
         }
 
-        return response()->json($itinerary->load('destinations'), 201);
+        return response()->json([
+            'message' => 'Itinerary created successfully',
+            'itinerary' => $itinerary->load('destinations')
+        ], 201);
     }
 
     /**
